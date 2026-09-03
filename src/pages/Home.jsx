@@ -141,13 +141,13 @@ export default function Home() {
                   <path d="M0,0 C30,25 70,25 100,0" fill="none" stroke="#c6a15b" strokeWidth="1" />
                 </svg>
                 <div className="pro-card-icon-wrapper">
-                  <img src="/assets/images/breakfast_3d_icon.jpg" alt="Free Breakfast" />
+                  <img src="/assets/images/breakfast_3d_icon.jpg" alt="Fully Equipped Kitchen" />
                 </div>
               </div>
               <div className="pro-card-content">
-                <h3>Free Breakfast</h3>
+                <h3>Fully Equipped Kitchen</h3>
                 <Separator icon="★" color="var(--color-champagne-gold)" />
-                <p>Begin your day with a complimentary breakfast prepared for your convenience.</p>
+                <p>Prepare your favorite meals in our modern kitchen, equipped with all the essentials for a comfortable stay</p>
               </div>
             </div>
             
