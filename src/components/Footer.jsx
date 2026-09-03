@@ -28,6 +28,9 @@ export default function Footer() {
             </ul>
           </div>
         </div>
+        <div style={{ textAlign: 'center', paddingBottom: '1.5rem', color: 'var(--color-champagne-gold)', fontSize: '0.9rem' }}>
+          Developed by <a href="https://yaaletech.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-champagne-gold)', textDecoration: 'underline' }}>yaale technologies</a>
+        </div>
         <div className="footer-bottom">
           <p>&copy; {new Date().getFullYear()} Heaven Crest – 127 Suites & Stays. All rights reserved.</p>
         </div>

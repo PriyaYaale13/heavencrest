@@ -89,7 +89,7 @@ export default function Contact() {
             <h4 className="gold-subtitle">GET IN TOUCH</h4>
             <h1 className="heading-large" style={{ fontSize: '3rem', color: '#fff' }}>We're Here to Help You</h1>
             <Separator icon="★" style={{ margin: '1rem 0' }} />
-            <p style={{ color: '#eee', lineHeight: '1.6', maxWidth: '400px' }}>Have a question about your stay or need more information?<br/>Our team at Heaven Crest - 127 Suites & Stays is here to<br/>make your visit comfortable and convenient.</p>
+            <p style={{ color: '#eee', lineHeight: '1.6', maxWidth: '400px' }}>Have a question about your stay or need more information? Our team at Heaven Crest - 127 Suites & Stays is here to make your visit comfortable and convenient.</p>
           </div>
 
         </div>
