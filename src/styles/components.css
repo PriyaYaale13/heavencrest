@@ -2156,6 +2156,7 @@ textarea.form-control {
 input[type="date"] {
   color-scheme: dark;
   accent-color: var(--color-champagne-gold);
+  background-color: #fff;
 }
 input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(1) sepia(1) saturate(5) hue-rotate(350deg) brightness(0.8);

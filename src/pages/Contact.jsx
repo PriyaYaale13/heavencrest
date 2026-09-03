@@ -17,6 +17,27 @@ export default function Contact() {
     message: ''
   });
 
+  // Calculate minimum check-in date (tomorrow) using local time
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const minCheckIn = `${tomorrow.getFullYear()}-${String(tomorrow.getMonth() + 1).padStart(2, '0')}-${String(tomorrow.getDate()).padStart(2, '0')}`;
+
+  // Calculate minimum check-out date (day after selected check-in) using local time
+  let minCheckOut = "";
+  if (formData.checkin) {
+    const checkinParts = formData.checkin.split('-');
+    const checkinDate = new Date(checkinParts[0], checkinParts[1] - 1, checkinParts[2]);
+    const dayAfterCheckin = new Date(checkinDate);
+    dayAfterCheckin.setDate(dayAfterCheckin.getDate() + 1);
+    minCheckOut = `${dayAfterCheckin.getFullYear()}-${String(dayAfterCheckin.getMonth() + 1).padStart(2, '0')}-${String(dayAfterCheckin.getDate()).padStart(2, '0')}`;
+  } else {
+    const dayAfterTomorrow = new Date(tomorrow);
+    dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 1);
+    minCheckOut = `${dayAfterTomorrow.getFullYear()}-${String(dayAfterTomorrow.getMonth() + 1).padStart(2, '0')}-${String(dayAfterTomorrow.getDate()).padStart(2, '0')}`;
+  }
+
+
   const handleChange = (e) => {
     const { id, value } = e.target;
     if (id === 'phone') {
@@ -35,7 +56,9 @@ export default function Contact() {
       return;
     }
     
-    const data = `Name: ${formData.name}%0APhone: ${formData.phone}%0AEmail: ${formData.email}%0ARoom Type: ${formData.roomType}%0ACheck-in: ${formData.checkin}%0ACheck-out: ${formData.checkout}%0AGuests: ${formData.guests}%0AMessage: ${formData.message}`;
+    const formattedCheckin = formData.checkin ? formData.checkin.split('-').reverse().join('-') : '';
+    const formattedCheckout = formData.checkout ? formData.checkout.split('-').reverse().join('-') : '';
+    const data = `Name: ${formData.name}%0APhone: ${formData.phone}%0AEmail: ${formData.email}%0ARoom Type: ${formData.roomType}%0ACheck-in: ${formattedCheckin}%0ACheck-out: ${formattedCheckout}%0AGuests: ${formData.guests}%0AMessage: ${formData.message}`;
     
     if (method === 'email') {
       
@@ -56,8 +79,8 @@ export default function Contact() {
               Phone: formData.phone,
               Email: formData.email,
               RoomType: formData.roomType,
-              CheckIn: formData.checkin,
-              CheckOut: formData.checkout,
+              CheckIn: formData.checkin ? formData.checkin.split('-').reverse().join('-') : '',
+              CheckOut: formData.checkout ? formData.checkout.split('-').reverse().join('-') : '',
               Guests: formData.guests,
               Message: formData.message
           })
@@ -171,8 +194,14 @@ export default function Contact() {
                 <option value="Family room" style={{ backgroundColor: '#151311', color: '#fcfbf8' }}>3. Family room</option>
               </select>
               <div className="form-row">
-                <input type="text" id="checkin" className="c-form-control" placeholder="Check-in Date" onFocus={(e) => e.target.type='date'} onBlur={(e) => e.target.type='text'} value={formData.checkin} onChange={handleChange} required />
-                <input type="text" id="checkout" className="c-form-control" placeholder="Check-out Date" onFocus={(e) => e.target.type='date'} onBlur={(e) => e.target.type='text'} value={formData.checkout} onChange={handleChange} required />
+                <div style={{ position: 'relative', flex: 1 }}>
+                  {!formData.checkin && <span style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: '#999', pointerEvents: 'none', maxWidth: 'calc(100% - 40px)', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>Check-in Date</span>}
+                  <input type="date" id="checkin" className="c-form-control" value={formData.checkin} min={minCheckIn} onChange={handleChange} required style={{ color: formData.checkin ? 'inherit' : 'transparent' }} />
+                </div>
+                <div style={{ position: 'relative', flex: 1 }}>
+                  {!formData.checkout && <span style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: '#999', pointerEvents: 'none', maxWidth: 'calc(100% - 40px)', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>Check-out Date</span>}
+                  <input type="date" id="checkout" className="c-form-control" value={formData.checkout} min={minCheckOut} onChange={handleChange} required style={{ color: formData.checkout ? 'inherit' : 'transparent' }} />
+                </div>
               </div>
               <input type="number" id="guests" className="c-form-control" placeholder="Number of Guests" min="1" value={formData.guests} onChange={handleChange} required />
               <textarea id="message" className="c-form-control" placeholder="Message or Special Requests" value={formData.message} onChange={handleChange}></textarea>
