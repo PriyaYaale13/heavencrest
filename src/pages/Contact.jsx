@@ -19,6 +19,12 @@ export default function Contact() {
 
   const handleChange = (e) => {
     const { id, value } = e.target;
+    if (id === 'phone') {
+      // Allow only numbers and limit to 10 digits
+      const onlyNums = value.replace(/[^0-9]/g, '').slice(0, 10);
+      setFormData(prev => ({ ...prev, [id]: onlyNums }));
+      return;
+    }
     setFormData(prev => ({ ...prev, [id]: value }));
   };
 
@@ -155,7 +161,7 @@ export default function Contact() {
             <form id="enquiryForm" onSubmit={(e) => e.preventDefault()}>
               <div className="form-row">
                 <input type="text" id="name" className="c-form-control" placeholder="Full Name" value={formData.name} onChange={handleChange} required />
-                <input type="tel" id="phone" className="c-form-control" placeholder="Phone Number" value={formData.phone} onChange={handleChange} required />
+                <input type="tel" id="phone" className="c-form-control" placeholder="Phone Number (10 digits)" value={formData.phone} onChange={handleChange} pattern="[0-9]{10}" title="Please enter exactly 10 digits" maxLength="10" required />
               </div>
               <input type="email" id="email" className="c-form-control" placeholder="Email Address" value={formData.email} onChange={handleChange} required />
               <select id="roomType" className="c-form-control" value={formData.roomType} onChange={handleChange} required style={{ backgroundColor: 'transparent' }}>
